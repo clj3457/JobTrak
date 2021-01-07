@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="dbJobTrakker" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=LAPTOP-KKSCK99N;Initial Catalog=dbJobTrakker;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False" SettingsObjectName="JobTrakker.Properties.Settings" SettingsPropertyName="dbJobTrakkerConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.tblJobTrakker" Member="tblJobTrakkers">
+    <Type Name="tblJobTrakker">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ActiveState" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="DWSFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Company" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="StaffingFirm" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="JobTitle" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ContactDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="InterviewDateTime" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="JobBoard" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="JobID" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Contact" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="RecruiterFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="JobLocation" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="CompanyPhone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="WebSite" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Comments" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
