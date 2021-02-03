@@ -55,14 +55,12 @@ namespace JobTrakker
             this.CommentsLbl = new System.Windows.Forms.Label();
             this.CommentsBox = new System.Windows.Forms.TextBox();
             this.DeleteBtn = new System.Windows.Forms.Button();
-            this.SaveBtn = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.ContactEmailBox = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.JobStatusLbl = new System.Windows.Forms.Label();
             this.JobBoardLbl = new System.Windows.Forms.Label();
             this.DisplayEntryBtn = new System.Windows.Forms.Button();
-            this.ClearEntryBtn = new System.Windows.Forms.Button();
             this.SelectSearchCbo = new System.Windows.Forms.ComboBox();
             this.SearchBox = new System.Windows.Forms.TextBox();
             this.SearchBtn = new System.Windows.Forms.Button();
@@ -83,10 +81,18 @@ namespace JobTrakker
             this.StaffingFirmBox = new System.Windows.Forms.TextBox();
             this.StaffingFirmLbl = new System.Windows.Forms.Label();
             this.JobBoardCbo = new System.Windows.Forms.ComboBox();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.RecruiterChk = new System.Windows.Forms.CheckBox();
             this.DWSChk = new System.Windows.Forms.CheckBox();
+            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
+            this.btnNewEntry = new System.Windows.Forms.Button();
+            this.btnSaveEntry = new System.Windows.Forms.Button();
+            this.btnClearEntry = new System.Windows.Forms.Button();
+            this.JobTypeCbo = new System.Windows.Forms.ComboBox();
+            this.JobTypeLbl = new System.Windows.Forms.Label();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -108,7 +114,8 @@ namespace JobTrakker
             "Canceled",
             "Closed",
             "Hired"});
-            this.JobStatusCbo.Location = new System.Drawing.Point(140, 212);
+            this.JobStatusCbo.Location = new System.Drawing.Point(153, 212);
+            this.JobStatusCbo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.JobStatusCbo.Name = "JobStatusCbo";
             this.JobStatusCbo.Size = new System.Drawing.Size(175, 24);
             this.JobStatusCbo.TabIndex = 78;
@@ -126,8 +133,8 @@ namespace JobTrakker
             // 
             // CompanyNameBox
             // 
-            this.CompanyNameBox.Location = new System.Drawing.Point(140, 27);
-            this.CompanyNameBox.Margin = new System.Windows.Forms.Padding(4);
+            this.CompanyNameBox.Location = new System.Drawing.Point(153, 27);
+            this.CompanyNameBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.CompanyNameBox.Name = "CompanyNameBox";
             this.CompanyNameBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.CompanyNameBox.Size = new System.Drawing.Size(175, 22);
@@ -135,8 +142,8 @@ namespace JobTrakker
             // 
             // JobTitleBox
             // 
-            this.JobTitleBox.Location = new System.Drawing.Point(140, 59);
-            this.JobTitleBox.Margin = new System.Windows.Forms.Padding(4);
+            this.JobTitleBox.Location = new System.Drawing.Point(153, 59);
+            this.JobTitleBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.JobTitleBox.Name = "JobTitleBox";
             this.JobTitleBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.JobTitleBox.Size = new System.Drawing.Size(175, 22);
@@ -155,8 +162,8 @@ namespace JobTrakker
             // 
             // ContactTitleBox
             // 
-            this.ContactTitleBox.Location = new System.Drawing.Point(140, 155);
-            this.ContactTitleBox.Margin = new System.Windows.Forms.Padding(4);
+            this.ContactTitleBox.Location = new System.Drawing.Point(153, 155);
+            this.ContactTitleBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ContactTitleBox.Name = "ContactTitleBox";
             this.ContactTitleBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.ContactTitleBox.Size = new System.Drawing.Size(173, 22);
@@ -175,8 +182,8 @@ namespace JobTrakker
             // 
             // ContactPhoneBox
             // 
-            this.ContactPhoneBox.Location = new System.Drawing.Point(498, 183);
-            this.ContactPhoneBox.Margin = new System.Windows.Forms.Padding(4);
+            this.ContactPhoneBox.Location = new System.Drawing.Point(503, 183);
+            this.ContactPhoneBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ContactPhoneBox.Name = "ContactPhoneBox";
             this.ContactPhoneBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.ContactPhoneBox.Size = new System.Drawing.Size(173, 22);
@@ -195,8 +202,8 @@ namespace JobTrakker
             // 
             // NameBox
             // 
-            this.NameBox.Location = new System.Drawing.Point(140, 123);
-            this.NameBox.Margin = new System.Windows.Forms.Padding(4);
+            this.NameBox.Location = new System.Drawing.Point(153, 123);
+            this.NameBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.NameBox.Name = "NameBox";
             this.NameBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.NameBox.Size = new System.Drawing.Size(175, 22);
@@ -215,8 +222,8 @@ namespace JobTrakker
             // 
             // JobIDBox
             // 
-            this.JobIDBox.Location = new System.Drawing.Point(140, 94);
-            this.JobIDBox.Margin = new System.Windows.Forms.Padding(4);
+            this.JobIDBox.Location = new System.Drawing.Point(153, 94);
+            this.JobIDBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.JobIDBox.Name = "JobIDBox";
             this.JobIDBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.JobIDBox.Size = new System.Drawing.Size(175, 22);
@@ -235,8 +242,8 @@ namespace JobTrakker
             // 
             // AddressBox
             // 
-            this.AddressBox.Location = new System.Drawing.Point(498, 120);
-            this.AddressBox.Margin = new System.Windows.Forms.Padding(4);
+            this.AddressBox.Location = new System.Drawing.Point(503, 121);
+            this.AddressBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.AddressBox.Name = "AddressBox";
             this.AddressBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.AddressBox.Size = new System.Drawing.Size(173, 22);
@@ -255,8 +262,8 @@ namespace JobTrakker
             // 
             // CompanyWebsiteBox
             // 
-            this.CompanyWebsiteBox.Location = new System.Drawing.Point(498, 58);
-            this.CompanyWebsiteBox.Margin = new System.Windows.Forms.Padding(4);
+            this.CompanyWebsiteBox.Location = new System.Drawing.Point(503, 58);
+            this.CompanyWebsiteBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.CompanyWebsiteBox.Name = "CompanyWebsiteBox";
             this.CompanyWebsiteBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.CompanyWebsiteBox.Size = new System.Drawing.Size(173, 22);
@@ -287,17 +294,17 @@ namespace JobTrakker
             // ContactDatePkr
             // 
             this.ContactDatePkr.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.ContactDatePkr.Location = new System.Drawing.Point(140, 185);
-            this.ContactDatePkr.Margin = new System.Windows.Forms.Padding(4);
+            this.ContactDatePkr.Location = new System.Drawing.Point(153, 185);
+            this.ContactDatePkr.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ContactDatePkr.Name = "ContactDatePkr";
             this.ContactDatePkr.Size = new System.Drawing.Size(175, 22);
             this.ContactDatePkr.TabIndex = 49;
-            this.ContactDatePkr.Value = new System.DateTime(2020, 10, 5, 0, 0, 0, 0);
+            this.ContactDatePkr.Value = new System.DateTime(2020, 11, 17, 13, 9, 57, 0);
             // 
             // CompanyPhoneBox
             // 
-            this.CompanyPhoneBox.Location = new System.Drawing.Point(498, 88);
-            this.CompanyPhoneBox.Margin = new System.Windows.Forms.Padding(4);
+            this.CompanyPhoneBox.Location = new System.Drawing.Point(503, 89);
+            this.CompanyPhoneBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.CompanyPhoneBox.Name = "CompanyPhoneBox";
             this.CompanyPhoneBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.CompanyPhoneBox.Size = new System.Drawing.Size(173, 22);
@@ -317,7 +324,7 @@ namespace JobTrakker
             // CommentsLbl
             // 
             this.CommentsLbl.AutoSize = true;
-            this.CommentsLbl.Location = new System.Drawing.Point(676, 6);
+            this.CommentsLbl.Location = new System.Drawing.Point(688, 5);
             this.CommentsLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.CommentsLbl.Name = "CommentsLbl";
             this.CommentsLbl.Size = new System.Drawing.Size(74, 17);
@@ -327,51 +334,41 @@ namespace JobTrakker
             // 
             // CommentsBox
             // 
-            this.CommentsBox.Location = new System.Drawing.Point(679, 27);
-            this.CommentsBox.Margin = new System.Windows.Forms.Padding(4);
+            this.CommentsBox.Location = new System.Drawing.Point(692, 27);
+            this.CommentsBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.CommentsBox.Multiline = true;
             this.CommentsBox.Name = "CommentsBox";
             this.CommentsBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.CommentsBox.Size = new System.Drawing.Size(1172, 273);
+            this.CommentsBox.Size = new System.Drawing.Size(1068, 303);
             this.CommentsBox.TabIndex = 55;
             // 
             // DeleteBtn
             // 
-            this.DeleteBtn.Location = new System.Drawing.Point(163, 387);
-            this.DeleteBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.DeleteBtn.Location = new System.Drawing.Point(133, 386);
+            this.DeleteBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.DeleteBtn.Name = "DeleteBtn";
-            this.DeleteBtn.Size = new System.Drawing.Size(100, 28);
+            this.DeleteBtn.Size = new System.Drawing.Size(108, 28);
             this.DeleteBtn.TabIndex = 57;
             this.DeleteBtn.Text = "Delete Row";
             this.DeleteBtn.UseVisualStyleBackColor = true;
             this.DeleteBtn.Click += new System.EventHandler(this.DeleteBtn_Click);
             // 
-            // SaveBtn
-            // 
-            this.SaveBtn.Location = new System.Drawing.Point(22, 349);
-            this.SaveBtn.Margin = new System.Windows.Forms.Padding(4);
-            this.SaveBtn.Name = "SaveBtn";
-            this.SaveBtn.Size = new System.Drawing.Size(118, 28);
-            this.SaveBtn.TabIndex = 58;
-            this.SaveBtn.Text = "Save Entry";
-            this.SaveBtn.UseVisualStyleBackColor = true;
-            this.SaveBtn.Click += new System.EventHandler(this.SaveBtn_Click);
-            // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(22, 422);
+            this.dataGridView1.Location = new System.Drawing.Point(21, 422);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1890, 408);
+            this.dataGridView1.Size = new System.Drawing.Size(1739, 409);
             this.dataGridView1.TabIndex = 59;
             this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
             // 
             // ContactEmailBox
             // 
-            this.ContactEmailBox.Location = new System.Drawing.Point(498, 150);
-            this.ContactEmailBox.Margin = new System.Windows.Forms.Padding(4);
+            this.ContactEmailBox.Location = new System.Drawing.Point(503, 150);
+            this.ContactEmailBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ContactEmailBox.Name = "ContactEmailBox";
             this.ContactEmailBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.ContactEmailBox.Size = new System.Drawing.Size(173, 22);
@@ -412,56 +409,49 @@ namespace JobTrakker
             // 
             // DisplayEntryBtn
             // 
-            this.DisplayEntryBtn.Location = new System.Drawing.Point(22, 387);
-            this.DisplayEntryBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.DisplayEntryBtn.Location = new System.Drawing.Point(21, 386);
+            this.DisplayEntryBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.DisplayEntryBtn.Name = "DisplayEntryBtn";
-            this.DisplayEntryBtn.Size = new System.Drawing.Size(118, 28);
+            this.DisplayEntryBtn.Size = new System.Drawing.Size(104, 28);
             this.DisplayEntryBtn.TabIndex = 82;
             this.DisplayEntryBtn.Text = "Edit Row";
             this.DisplayEntryBtn.UseCompatibleTextRendering = true;
             this.DisplayEntryBtn.UseVisualStyleBackColor = true;
             this.DisplayEntryBtn.Click += new System.EventHandler(this.DisplayEntryBtn_Click);
             // 
-            // ClearEntryBtn
-            // 
-            this.ClearEntryBtn.Location = new System.Drawing.Point(163, 349);
-            this.ClearEntryBtn.Margin = new System.Windows.Forms.Padding(4);
-            this.ClearEntryBtn.Name = "ClearEntryBtn";
-            this.ClearEntryBtn.Size = new System.Drawing.Size(100, 28);
-            this.ClearEntryBtn.TabIndex = 83;
-            this.ClearEntryBtn.Text = "Clear Entry";
-            this.ClearEntryBtn.UseVisualStyleBackColor = true;
-            this.ClearEntryBtn.Click += new System.EventHandler(this.ClearEntryBtn_Click);
-            // 
             // SelectSearchCbo
             // 
             this.SelectSearchCbo.FormattingEnabled = true;
             this.SelectSearchCbo.Items.AddRange(new object[] {
             "No Selection",
-            "Active State",
+            "Application Status",
+            "DWSFlag",
             "Job Title",
             "Company Name",
             "Staffing Firm Name",
-            "Job Status"});
-            this.SelectSearchCbo.Location = new System.Drawing.Point(682, 388);
+            "Job Status",
+            "Job Type",
+            "Not Closed"});
+            this.SelectSearchCbo.Location = new System.Drawing.Point(683, 388);
+            this.SelectSearchCbo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.SelectSearchCbo.Name = "SelectSearchCbo";
-            this.SelectSearchCbo.Size = new System.Drawing.Size(162, 24);
+            this.SelectSearchCbo.Size = new System.Drawing.Size(161, 24);
             this.SelectSearchCbo.TabIndex = 85;
             this.SelectSearchCbo.Tag = "";
             // 
             // SearchBox
             // 
             this.SearchBox.Location = new System.Drawing.Point(865, 390);
-            this.SearchBox.Margin = new System.Windows.Forms.Padding(4);
+            this.SearchBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.SearchBox.Name = "SearchBox";
             this.SearchBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.SearchBox.Size = new System.Drawing.Size(314, 22);
+            this.SearchBox.Size = new System.Drawing.Size(313, 22);
             this.SearchBox.TabIndex = 86;
             // 
             // SearchBtn
             // 
             this.SearchBtn.Location = new System.Drawing.Point(1207, 384);
-            this.SearchBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.SearchBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.SearchBtn.Name = "SearchBtn";
             this.SearchBtn.Size = new System.Drawing.Size(93, 28);
             this.SearchBtn.TabIndex = 87;
@@ -481,7 +471,7 @@ namespace JobTrakker
             // SearchLbl
             // 
             this.SearchLbl.AutoSize = true;
-            this.SearchLbl.Location = new System.Drawing.Point(862, 369);
+            this.SearchLbl.Location = new System.Drawing.Point(861, 369);
             this.SearchLbl.Name = "SearchLbl";
             this.SearchLbl.Size = new System.Drawing.Size(140, 17);
             this.SearchLbl.TabIndex = 89;
@@ -489,19 +479,20 @@ namespace JobTrakker
             // 
             // ExportOpenBtn
             // 
-            this.ExportOpenBtn.Location = new System.Drawing.Point(285, 387);
-            this.ExportOpenBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.ExportOpenBtn.Location = new System.Drawing.Point(479, 350);
+            this.ExportOpenBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ExportOpenBtn.Name = "ExportOpenBtn";
-            this.ExportOpenBtn.Size = new System.Drawing.Size(174, 28);
+            this.ExportOpenBtn.Size = new System.Drawing.Size(173, 28);
             this.ExportOpenBtn.TabIndex = 90;
             this.ExportOpenBtn.Text = "Export/Open To Excel";
             this.ExportOpenBtn.UseVisualStyleBackColor = true;
+            this.ExportOpenBtn.Visible = false;
             this.ExportOpenBtn.Click += new System.EventHandler(this.ExportOpenBtn_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(335, 248);
+            this.label4.Location = new System.Drawing.Point(335, 249);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(132, 17);
             this.label4.TabIndex = 95;
@@ -509,8 +500,8 @@ namespace JobTrakker
             // 
             // InterviewDateTimeBox
             // 
-            this.InterviewDateTimeBox.Location = new System.Drawing.Point(498, 245);
-            this.InterviewDateTimeBox.Margin = new System.Windows.Forms.Padding(4);
+            this.InterviewDateTimeBox.Location = new System.Drawing.Point(503, 245);
+            this.InterviewDateTimeBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.InterviewDateTimeBox.Name = "InterviewDateTimeBox";
             this.InterviewDateTimeBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.InterviewDateTimeBox.Size = new System.Drawing.Size(173, 22);
@@ -519,7 +510,7 @@ namespace JobTrakker
             // ClearSearchBtn
             // 
             this.ClearSearchBtn.Location = new System.Drawing.Point(1308, 384);
-            this.ClearSearchBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.ClearSearchBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ClearSearchBtn.Name = "ClearSearchBtn";
             this.ClearSearchBtn.Size = new System.Drawing.Size(93, 28);
             this.ClearSearchBtn.TabIndex = 97;
@@ -530,12 +521,12 @@ namespace JobTrakker
             // ActiveStateLbl
             // 
             this.ActiveStateLbl.AutoSize = true;
-            this.ActiveStateLbl.Location = new System.Drawing.Point(19, 248);
+            this.ActiveStateLbl.Location = new System.Drawing.Point(19, 249);
             this.ActiveStateLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ActiveStateLbl.Name = "ActiveStateLbl";
-            this.ActiveStateLbl.Size = new System.Drawing.Size(83, 17);
+            this.ActiveStateLbl.Size = new System.Drawing.Size(121, 17);
             this.ActiveStateLbl.TabIndex = 98;
-            this.ActiveStateLbl.Text = "Active State";
+            this.ActiveStateLbl.Text = "Application Status";
             this.ActiveStateLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // ActiveStateCbo
@@ -544,8 +535,11 @@ namespace JobTrakker
             this.ActiveStateCbo.Items.AddRange(new object[] {
             "None",
             "Active",
+            "Check Status",
+            "Status Request",
             "Closed"});
-            this.ActiveStateCbo.Location = new System.Drawing.Point(140, 245);
+            this.ActiveStateCbo.Location = new System.Drawing.Point(153, 245);
+            this.ActiveStateCbo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ActiveStateCbo.Name = "ActiveStateCbo";
             this.ActiveStateCbo.Size = new System.Drawing.Size(175, 24);
             this.ActiveStateCbo.TabIndex = 99;
@@ -556,9 +550,10 @@ namespace JobTrakker
             // 
             // SaveTextBtn
             // 
-            this.SaveTextBtn.Location = new System.Drawing.Point(473, 387);
+            this.SaveTextBtn.Location = new System.Drawing.Point(364, 388);
+            this.SaveTextBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.SaveTextBtn.Name = "SaveTextBtn";
-            this.SaveTextBtn.Size = new System.Drawing.Size(114, 28);
+            this.SaveTextBtn.Size = new System.Drawing.Size(108, 28);
             this.SaveTextBtn.TabIndex = 100;
             this.SaveTextBtn.Text = "Save To Text";
             this.SaveTextBtn.UseVisualStyleBackColor = true;
@@ -566,8 +561,8 @@ namespace JobTrakker
             // 
             // JobLocationBox
             // 
-            this.JobLocationBox.Location = new System.Drawing.Point(498, 214);
-            this.JobLocationBox.Margin = new System.Windows.Forms.Padding(4);
+            this.JobLocationBox.Location = new System.Drawing.Point(503, 214);
+            this.JobLocationBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.JobLocationBox.Name = "JobLocationBox";
             this.JobLocationBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.JobLocationBox.Size = new System.Drawing.Size(173, 22);
@@ -586,13 +581,14 @@ namespace JobTrakker
             // 
             // PrintEntryBtn
             // 
-            this.PrintEntryBtn.Location = new System.Drawing.Point(285, 349);
-            this.PrintEntryBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.PrintEntryBtn.Location = new System.Drawing.Point(479, 388);
+            this.PrintEntryBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.PrintEntryBtn.Name = "PrintEntryBtn";
-            this.PrintEntryBtn.Size = new System.Drawing.Size(174, 28);
+            this.PrintEntryBtn.Size = new System.Drawing.Size(173, 28);
             this.PrintEntryBtn.TabIndex = 105;
             this.PrintEntryBtn.Text = "Print Selected Entry";
             this.PrintEntryBtn.UseVisualStyleBackColor = true;
+            this.PrintEntryBtn.Visible = false;
             this.PrintEntryBtn.Click += new System.EventHandler(this.PrintEntryBtn_Click);
             // 
             // printDialog1
@@ -601,8 +597,8 @@ namespace JobTrakker
             // 
             // StaffingFirmBox
             // 
-            this.StaffingFirmBox.Location = new System.Drawing.Point(498, 28);
-            this.StaffingFirmBox.Margin = new System.Windows.Forms.Padding(4);
+            this.StaffingFirmBox.Location = new System.Drawing.Point(503, 28);
+            this.StaffingFirmBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.StaffingFirmBox.Name = "StaffingFirmBox";
             this.StaffingFirmBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.StaffingFirmBox.Size = new System.Drawing.Size(173, 22);
@@ -634,19 +630,17 @@ namespace JobTrakker
             "ZipRecruiter",
             "Company Web Site",
             "Other"});
-            this.JobBoardCbo.Location = new System.Drawing.Point(498, 276);
+            this.JobBoardCbo.Location = new System.Drawing.Point(503, 276);
+            this.JobBoardCbo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.JobBoardCbo.Name = "JobBoardCbo";
             this.JobBoardCbo.Size = new System.Drawing.Size(175, 24);
             this.JobBoardCbo.TabIndex = 108;
             // 
-            // bindingSource1
-            // 
-            this.bindingSource1.DataSource = typeof(JobTrakker.tblJobTrakker);
-            // 
             // RecruiterChk
             // 
             this.RecruiterChk.AutoSize = true;
-            this.RecruiterChk.Location = new System.Drawing.Point(22, 277);
+            this.RecruiterChk.Location = new System.Drawing.Point(21, 277);
+            this.RecruiterChk.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RecruiterChk.Name = "RecruiterChk";
             this.RecruiterChk.Size = new System.Drawing.Size(191, 21);
             this.RecruiterChk.TabIndex = 109;
@@ -656,18 +650,104 @@ namespace JobTrakker
             // DWSChk
             // 
             this.DWSChk.AutoSize = true;
-            this.DWSChk.Location = new System.Drawing.Point(22, 305);
+            this.DWSChk.Location = new System.Drawing.Point(21, 305);
+            this.DWSChk.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.DWSChk.Name = "DWSChk";
             this.DWSChk.Size = new System.Drawing.Size(143, 21);
             this.DWSChk.TabIndex = 110;
             this.DWSChk.Text = "Entered Into DWS";
             this.DWSChk.UseVisualStyleBackColor = true;
             // 
+            // fileSystemWatcher1
+            // 
+            this.fileSystemWatcher1.EnableRaisingEvents = true;
+            this.fileSystemWatcher1.SynchronizingObject = this;
+            // 
+            // btnNewEntry
+            // 
+            this.btnNewEntry.Location = new System.Drawing.Point(249, 350);
+            this.btnNewEntry.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnNewEntry.Name = "btnNewEntry";
+            this.btnNewEntry.Size = new System.Drawing.Size(108, 28);
+            this.btnNewEntry.TabIndex = 111;
+            this.btnNewEntry.Text = "New Entry";
+            this.btnNewEntry.UseVisualStyleBackColor = true;
+            this.btnNewEntry.Click += new System.EventHandler(this.btnNewEntry_Click);
+            // 
+            // btnSaveEntry
+            // 
+            this.btnSaveEntry.Location = new System.Drawing.Point(133, 350);
+            this.btnSaveEntry.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSaveEntry.Name = "btnSaveEntry";
+            this.btnSaveEntry.Size = new System.Drawing.Size(108, 28);
+            this.btnSaveEntry.TabIndex = 145;
+            this.btnSaveEntry.Text = "Save Entry";
+            this.btnSaveEntry.UseVisualStyleBackColor = true;
+            this.btnSaveEntry.Click += new System.EventHandler(this.btnSaveEntry_Click);
+            // 
+            // btnClearEntry
+            // 
+            this.btnClearEntry.Location = new System.Drawing.Point(249, 387);
+            this.btnClearEntry.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnClearEntry.Name = "btnClearEntry";
+            this.btnClearEntry.Size = new System.Drawing.Size(108, 28);
+            this.btnClearEntry.TabIndex = 146;
+            this.btnClearEntry.Text = "Clear Entry";
+            this.btnClearEntry.UseVisualStyleBackColor = true;
+            this.btnClearEntry.Click += new System.EventHandler(this.btnClearEntry_Click);
+            // 
+            // JobTypeCbo
+            // 
+            this.JobTypeCbo.FormattingEnabled = true;
+            this.JobTypeCbo.Items.AddRange(new object[] {
+            "None",
+            "Software",
+            "Tech Support",
+            "Retail",
+            "Other"});
+            this.JobTypeCbo.Location = new System.Drawing.Point(503, 306);
+            this.JobTypeCbo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.JobTypeCbo.Name = "JobTypeCbo";
+            this.JobTypeCbo.Size = new System.Drawing.Size(175, 24);
+            this.JobTypeCbo.TabIndex = 148;
+            // 
+            // JobTypeLbl
+            // 
+            this.JobTypeLbl.AutoSize = true;
+            this.JobTypeLbl.Location = new System.Drawing.Point(335, 308);
+            this.JobTypeLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.JobTypeLbl.Name = "JobTypeLbl";
+            this.JobTypeLbl.Size = new System.Drawing.Size(67, 17);
+            this.JobTypeLbl.TabIndex = 147;
+            this.JobTypeLbl.Text = "Job Type";
+            this.JobTypeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Location = new System.Drawing.Point(23, 350);
+            this.btnUpdate.Margin = new System.Windows.Forms.Padding(4);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(104, 28);
+            this.btnUpdate.TabIndex = 149;
+            this.btnUpdate.Text = "Update Entry";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
+            // bindingSource1
+            // 
+            this.bindingSource1.DataSource = typeof(JobTrakker.tblJobTrakker);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1924, 857);
+            this.Controls.Add(this.btnUpdate);
+            this.Controls.Add(this.JobTypeCbo);
+            this.Controls.Add(this.JobTypeLbl);
+            this.Controls.Add(this.btnClearEntry);
+            this.Controls.Add(this.btnSaveEntry);
+            this.Controls.Add(this.btnNewEntry);
             this.Controls.Add(this.DWSChk);
             this.Controls.Add(this.RecruiterChk);
             this.Controls.Add(this.JobBoardCbo);
@@ -688,7 +768,6 @@ namespace JobTrakker
             this.Controls.Add(this.SearchBtn);
             this.Controls.Add(this.SearchBox);
             this.Controls.Add(this.SelectSearchCbo);
-            this.Controls.Add(this.ClearEntryBtn);
             this.Controls.Add(this.DisplayEntryBtn);
             this.Controls.Add(this.JobStatusCbo);
             this.Controls.Add(this.JobBoardLbl);
@@ -696,7 +775,6 @@ namespace JobTrakker
             this.Controls.Add(this.ContactEmailBox);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.SaveBtn);
             this.Controls.Add(this.DeleteBtn);
             this.Controls.Add(this.CommentsBox);
             this.Controls.Add(this.CommentsLbl);
@@ -720,11 +798,12 @@ namespace JobTrakker
             this.Controls.Add(this.JobTitleLbl);
             this.Controls.Add(this.CompanyNameBox);
             this.Controls.Add(this.CompanyNameLbl);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Main";
             this.Text = "Job Trakker";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -756,7 +835,6 @@ namespace JobTrakker
         private System.Windows.Forms.Label CommentsLbl;
         private System.Windows.Forms.TextBox CommentsBox;
         private System.Windows.Forms.Button DeleteBtn;
-        private System.Windows.Forms.Button SaveBtn;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.TextBox ContactEmailBox;
         private System.Windows.Forms.Label label10;
@@ -764,7 +842,6 @@ namespace JobTrakker
         private Label JobBoardLbl;
         private ComboBox JobStatusCbo;
         private Button DisplayEntryBtn;
-        private Button ClearEntryBtn;
         private ComboBox SelectSearchCbo;
         private TextBox SearchBox;
         private Button SearchBtn;
@@ -784,10 +861,17 @@ namespace JobTrakker
         private PrintDialog printDialog1;
         private TextBox StaffingFirmBox;
         private Label StaffingFirmLbl;
-        private BindingSource bindingSource1;
         private ComboBox JobBoardCbo;
         private CheckBox RecruiterChk;
         private CheckBox DWSChk;
+        private System.IO.FileSystemWatcher fileSystemWatcher1;
+        private Button btnNewEntry;
+        private Button btnSaveEntry;
+        private Button btnClearEntry;
+        private ComboBox JobTypeCbo;
+        private Label JobTypeLbl;
+        private BindingSource bindingSource1;
+        private Button btnUpdate;
     }
 }
 

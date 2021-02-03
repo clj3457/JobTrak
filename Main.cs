@@ -38,18 +38,30 @@ namespace JobTrakker
         {
             JobStatusCbo.SelectedIndex = 0;             // set index to 1st item in job status combo box
             dataGridView1.DataSource = bindingSource1;  // sets the source of the data to be displayed
+
+            // set following columns invisible
+            dataGridView1.Columns[0].ReadOnly = true;       // prevents ID field from being changed.   
             dataGridView1.Columns[0].Visible = false;
-            GetData(selectStatement);
+            for (int idx = 12; idx < 21; idx++)
+            {
+                dataGridView1.Columns[idx].Visible = false;
+            }
+
+            // update dataGridView from database table
+            GetDataFromTable(selectStatement, true);
         }
-        
-        private void RefreshData()
+
+        // refresh data: update data adapter from database table and clear entry boxes
+        // pass in sort flag to determine whether or not to sort dataGridView
+        private void RefreshData(bool sort)
         {
-            GetData(selectStatement);
+            GetDataFromTable(selectStatement, sort);
             dataGridView1.Update();
             ClearBoxes();
         }
 
-        private void GetData(string selectCommand)
+        // get data from database table and load into dataGridView adapter
+        private void GetDataFromTable(string selectCommand, bool sort)
         {
             try
             {
@@ -58,9 +70,10 @@ namespace JobTrakker
                 table.Locale = System.Globalization.CultureInfo.InvariantCulture;
                 dataAdapter.Fill(table);
                 bindingSource1.DataSource = table;
-                dataGridView1.Columns[0].ReadOnly = true;       // prevents ID field from being changed.   
-                dataGridView1.Columns[1].Visible = false;       // set active state as invisible
-                dataGridView1.Sort(dataGridView1.Columns[7], ListSortDirection.Descending);
+                if (sort)
+                {
+                    dataGridView1.Sort(dataGridView1.Columns[7], ListSortDirection.Descending);
+                }
             }
             catch (SqlException ex)
             {
@@ -68,6 +81,7 @@ namespace JobTrakker
             }
         }
 
+        // clear all entry boxes
         private void ClearBoxes()
         {
             ActiveStateCbo.SelectedIndex = 0;
@@ -86,71 +100,93 @@ namespace JobTrakker
             CompanyPhoneBox.Clear();
             CompanyWebsiteBox.Clear();
             CommentsBox.Clear();
-            ContactDatePkr.ResetText();
+            ContactDatePkr.Value = DateTime.Now;
             InterviewDateTimeBox.Clear();
             idSelected = 0;
             DWSChk.Checked = false;
             RecruiterChk.Checked = false;
-    }
+            JobTypeCbo.SelectedIndex = 0;
+        }
 
-    private void SaveBtn_Click(object sender, EventArgs e)
+        // save entered data to database
+        private void saveEntry()
         {
             SqlCommand command;
-            string insert = @"insert into tblJobTrakker(ActiveState, DWSFlag, Company, StaffingFirm, JobTitle, Status, ContactDate, InterviewDateTime, JobBoard, JobID, Contact, Title, Phone, Email, RecruiterFlag, Address, JobLocation, CompanyPhone, WebSite, Comments)
-                    values(@ActiveState, @DWSFlag, @Company, @StaffingFirm, @JobTitle, @Status, @ContactDate, @InterviewDateTime, @JobBoard, @JobID, @Contact, @Title, @Phone, @Email, @RecruiterFlag, @Address, @JobLocation, @CompanyPhone, @WebSite, @Comments)";
+            string insert = @"insert into tblJobTrakker(ApplicationStatus, DWSFlag, Company, StaffingFirm, JobTitle, Status, ContactDate, InterviewDateTime, JobBoard, JobID, Contact, Title, Phone, Email, RecruiterFlag, Address, JobLocation, CompanyPhone, WebSite, Comments, JobType)
+                    values(@ApplicationStatus, @DWSFlag, @Company, @StaffingFirm, @JobTitle, @Status, @ContactDate, @InterviewDateTime, @JobBoard, @JobID, @Contact, @Title, @Phone, @Email, @RecruiterFlag, @Address, @JobLocation, @CompanyPhone, @WebSite, @Comments, @JobType)";
 
-            string update = @"UPDATE tblJobTrakker SET ActiveState = @ActiveState, DWSFlag = @DWSFlag, Company = @Company, StaffingFirm = @StaffingFirm, JobTitle = @JobTitle, Status = @Status, ContactDate = @ContactDate, InterviewDateTime = @InterviewDateTime, JobBoard = @JobBoard, JobID = @JobID, Contact = @Contact, Title = @Title, Phone = @Phone, Email = @Email, RecruiterFlag = @RecruiterFlag, Address = @Address, JobLocation = @JobLocation, CompanyPhone = @CompanyPhone, WebSite = @WebSite, Comments = @Comments WHERE ID = " + idSelected.ToString();
+            string update = @"UPDATE tblJobTrakker SET ApplicationStatus = @ApplicationStatus, DWSFlag = @DWSFlag, Company = @Company, StaffingFirm = @StaffingFirm, JobTitle = @JobTitle, Status = @Status, ContactDate = @ContactDate, InterviewDateTime = @InterviewDateTime, JobBoard = @JobBoard, JobID = @JobID, Contact = @Contact, Title = @Title, Phone = @Phone, Email = @Email, RecruiterFlag = @RecruiterFlag, Address = @Address, JobLocation = @JobLocation, CompanyPhone = @CompanyPhone, WebSite = @WebSite, Comments = @Comments, JobType = @JobType WHERE ID = " + idSelected.ToString();
 
-                using (conn = new SqlConnection(connString))
+            using (conn = new SqlConnection(connString))
+            {
+                try
                 {
-                    try
+                    conn.Open();
+
+                    string cmdStatement = (idSelected.Equals(0) ? insert : update);
+                    command = new SqlCommand(cmdStatement, conn);
+
+                    string activeState = ActiveStateCbo.SelectedItem.ToString();
+                    if (activeState.Equals(-1))
                     {
-                        conn.Open();
-
-                        string cmdStatement = (idSelected.Equals(0) ? insert : update);
-                        command = new SqlCommand(cmdStatement, conn);
-
-                        string activeState = ActiveStateCbo.SelectedItem.ToString();
-                        if(activeState.Equals(-1))
-                        {
-                            activeState = "Active";
-                        }
-                        command.Parameters.AddWithValue(@"ActiveState", activeState);
-                        command.Parameters.AddWithValue(@"DWSFlag", DWSChk.Checked);
-                        command.Parameters.AddWithValue(@"Company", CompanyNameBox.Text);
-                        command.Parameters.AddWithValue(@"StaffingFirm", StaffingFirmBox.Text);
-                        command.Parameters.AddWithValue(@"JobTitle", JobTitleBox.Text);
-                        command.Parameters.AddWithValue(@"Status", JobStatusCbo.SelectedItem.ToString());
-                        command.Parameters.AddWithValue(@"ContactDate", ContactDatePkr.Value.Date);
-
-                        string jobBoard = JobBoardCbo.SelectedItem.ToString();
-                        if (jobBoard.Equals(-1))
-                        {
-                            jobBoard = "None";
-                        }
-                        command.Parameters.AddWithValue(@"JobBoard", jobBoard);
-                        command.Parameters.AddWithValue(@"JobID", JobIDBox.Text);
-                        command.Parameters.AddWithValue(@"Contact", NameBox.Text);
-                        command.Parameters.AddWithValue(@"Title", ContactTitleBox.Text);
-                        command.Parameters.AddWithValue(@"Phone", ContactPhoneBox.Text);
-                        command.Parameters.AddWithValue(@"Email", ContactEmailBox.Text);
-                        command.Parameters.AddWithValue(@"RecruiterFlag", RecruiterChk.Checked);
-                        command.Parameters.AddWithValue(@"Address", AddressBox.Text);
-                        command.Parameters.AddWithValue(@"JobLocation", JobLocationBox.Text);
-                        command.Parameters.AddWithValue(@"CompanyPhone", CompanyPhoneBox.Text);
-                        command.Parameters.AddWithValue(@"WebSite", CompanyWebsiteBox.Text);
-                        command.Parameters.AddWithValue(@"InterviewDateTime", InterviewDateTimeBox.Text);
-                        command.Parameters.AddWithValue(@"Comments", CommentsBox.Text);
-
-                        command.ExecuteNonQuery();  // push stuff into the table from the form
+                        activeState = "Active";
                     }
-                    catch(Exception ex)
+                    command.Parameters.AddWithValue(@"ApplicationStatus", activeState);
+                    command.Parameters.AddWithValue(@"DWSFlag", DWSChk.Checked);
+                    command.Parameters.AddWithValue(@"Company", CompanyNameBox.Text);
+                    command.Parameters.AddWithValue(@"StaffingFirm", StaffingFirmBox.Text);
+                    command.Parameters.AddWithValue(@"JobTitle", JobTitleBox.Text);
+                    command.Parameters.AddWithValue(@"Status", JobStatusCbo.SelectedItem.ToString());
+                    command.Parameters.AddWithValue(@"ContactDate", ContactDatePkr.Value.Date);
+
+                    string jobBoard = JobBoardCbo.SelectedItem.ToString();
+                    if (jobBoard.Equals(-1))
                     {
-                        MessageBox.Show(ex.Message);
-
+                        jobBoard = "None";
                     }
-                }           // end of using statement
-            RefreshData();
+                    command.Parameters.AddWithValue(@"JobBoard", jobBoard);
+                    command.Parameters.AddWithValue(@"JobID", JobIDBox.Text);
+                    command.Parameters.AddWithValue(@"Contact", NameBox.Text);
+                    command.Parameters.AddWithValue(@"Title", ContactTitleBox.Text);
+                    command.Parameters.AddWithValue(@"Phone", ContactPhoneBox.Text);
+                    command.Parameters.AddWithValue(@"Email", ContactEmailBox.Text);
+                    command.Parameters.AddWithValue(@"RecruiterFlag", RecruiterChk.Checked);
+                    command.Parameters.AddWithValue(@"Address", AddressBox.Text);
+                    command.Parameters.AddWithValue(@"JobLocation", JobLocationBox.Text);
+                    command.Parameters.AddWithValue(@"CompanyPhone", CompanyPhoneBox.Text);
+                    command.Parameters.AddWithValue(@"WebSite", CompanyWebsiteBox.Text);
+                    command.Parameters.AddWithValue(@"InterviewDateTime", InterviewDateTimeBox.Text);
+                    command.Parameters.AddWithValue(@"Comments", CommentsBox.Text);
+
+                    string jobType = JobTypeCbo.SelectedItem.ToString();
+                    if (jobType.Equals(-1))
+                    {
+                        jobType = "None";
+                    }
+                    command.Parameters.AddWithValue(@"JobType", jobType);
+
+                    command.ExecuteNonQuery();  // push stuff into the table from the form
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+
+                }
+            }           // end of using statement
+//            RefreshData();
+        }
+
+        // save entry to database and clear entry
+        private void btnSaveEntry_Click(object sender, EventArgs e)
+        {
+            saveEntry();
+            RefreshData(true);
+        }
+
+        // update entry by saving data to database, keeping entry displayed
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            saveEntry();
         }
 
         private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -194,7 +230,7 @@ namespace JobTrakker
                         MessageBox.Show(ex.Message);
                     }
                 }
-                RefreshData();
+                RefreshData(true);
             }
         }
 
@@ -217,7 +253,7 @@ namespace JobTrakker
                     JobStatusCbo.SelectedIndex = 0;
                 }
 
-                string activeState = row.Cells["ActiveState"].Value.ToString();
+                string activeState = row.Cells["ApplicationStatus"].Value.ToString();
                 ActiveStateCbo.SelectedIndex = ActiveStateCbo.FindString(activeState.Trim());
                 if(ActiveStateCbo.SelectedIndex.Equals(-1))
                 {
@@ -248,6 +284,13 @@ namespace JobTrakker
                 CompanyPhoneBox.Text = row.Cells["CompanyPhone"].Value.ToString();
                 CompanyWebsiteBox.Text = row.Cells["WebSite"].Value.ToString();
                 CommentsBox.Text = row.Cells["Comments"].Value.ToString();
+
+                string jobType = row.Cells["JobType"].Value.ToString();
+                JobTypeCbo.SelectedIndex = JobTypeCbo.FindString(jobType.Trim());
+                if(JobTypeCbo.SelectedIndex.Equals(-1))
+                {
+                    JobTypeCbo.SelectedIndex = 0;
+                }
             }
             catch (Exception ex)
             {
@@ -255,7 +298,15 @@ namespace JobTrakker
             }
         }
 
-        private void ClearEntryBtn_Click(object sender, EventArgs e)
+        private void btnNewEntry_Click(object sender, EventArgs e)
+        {
+            ClearBoxes();
+            ContactDatePkr.Value = DateTime.Today;
+            ActiveStateCbo.Text = "Active";
+            JobTypeCbo.Text = "Software";
+        }
+
+        private void btnClearEntry_Click(object sender, EventArgs e)
         {
             ClearBoxes();
         }
@@ -265,32 +316,42 @@ namespace JobTrakker
         //-----------------------------------------------------
         private void SearchBtn_Click(object sender, EventArgs e)
         {
+            bool sort = true;
             string searchSubject = SelectSearchCbo.SelectedItem.ToString();
             switch (searchSubject.Trim()) { 
                 // no selection made, get entire table
                 case "No Selection":
-                    GetData(selectStatement);
+                    GetDataFromTable(selectStatement, sort);
                 break;
                 // get all jobs with entered job title
                 case "Job Title":
-                    GetData("Select * from tblJobTrakker where lower(JobTitle) like '%" + SearchBox.Text.ToLower() + "%'");
+                    GetDataFromTable("Select * from tblJobTrakker where lower(JobTitle) like '%" + SearchBox.Text.ToLower() + "%'", sort);
                     break;
                 // get all jobs with entered company name
                 case "Company Name":
-                    GetData("Select * from tblJobTrakker where lower(Company) like '%" + SearchBox.Text.ToLower() + "%'");
+                    GetDataFromTable("Select * from tblJobTrakker where lower(Company) like '%" + SearchBox.Text.ToLower() + "%'", sort);
                     break;
                 // get all jobs with entered Staffing Firm name
                 case "Staffing Firm Name":
-                    GetData("Select * from tblJobTrakker where lower(StaffingFirm) like '%" + SearchBox.Text.ToLower() + "%'");
+                    GetDataFromTable("Select * from tblJobTrakker where lower(StaffingFirm) like '%" + SearchBox.Text.ToLower() + "%'", sort);
                     break;
                 // get all jobs with entered job status
                 case "Job Status":
-                    GetData("Select * from tblJobTrakker where lower(Status) like '%" + SearchBox.Text.ToLower() + "%'");
+                    GetDataFromTable("Select * from tblJobTrakker where lower(Status) like '%" + SearchBox.Text.ToLower() + "%'", sort);
                     break;
                 // get all jobs with entered active state
-                case "Active State":
-                    GetData("Select * from tblJobTrakker where lower(ActiveState) like '%" + SearchBox.Text.ToLower() + "%'");
+                case "Application Status":
+                    GetDataFromTable("Select * from tblJobTrakker where lower(ApplicationStatus) like '%" + SearchBox.Text.ToLower() + "%'", sort);
                     break;
+                // get all jobs with entered active state
+                case "Job Type":
+                    GetDataFromTable("Select * from tblJobTrakker where lower(JobType) like '%" + SearchBox.Text.ToLower() + "%'", sort);
+                    break;
+                // get all jobs that are not closed
+                case "Not Closed":
+                    GetDataFromTable("Select * from tblJobTrakker where lower(ApplicationStatus) not like '%closed%'", sort);
+                    break;
+
                 default:
                     break;
             }
@@ -300,6 +361,35 @@ namespace JobTrakker
         {
             SearchBox.Clear();
             SelectSearchCbo.SelectedIndex = 0;
+        }
+
+        //-------------------------------
+        // save content to text file
+        //-------------------------------
+        private void SaveTextBtn_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.Filter = "Text Files (*.txt)";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                using (StreamWriter sw = new StreamWriter(saveFileDialog1.FileName))
+                {
+                    // get each row
+                    foreach (DataGridViewRow row in dataGridView1.Rows)
+                    {
+                        sw.WriteLine("**************************************");
+                        // go through each cell in row
+                        foreach (DataGridViewCell cell in row.Cells)
+                        {
+                            if (cell.ColumnIndex != 0)
+                            {
+                                sw.WriteLine(dataGridView1.Columns[cell.ColumnIndex].Name + ": " + cell.Value);
+                            }
+                        }
+                        sw.WriteLine();             // put blank line between entries
+                    }
+                }
+                Process.Start("notepad.exe", saveFileDialog1.FileName);
+            }
         }
 
         //---------------------------------------------
@@ -358,31 +448,6 @@ namespace JobTrakker
             }
         }
 
-        //-------------------------------
-        // save content to text file
-        //-------------------------------
-        private void SaveTextBtn_Click(object sender, EventArgs e)
-        {
-            if(saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                using(StreamWriter sw = new StreamWriter(saveFileDialog1.FileName))
-                {
-                    // get each row
-                    foreach(DataGridViewRow row in dataGridView1.Rows)
-                    {
-                        // go through each cell in row
-                        foreach(DataGridViewCell cell in row.Cells)
-                        {
-                            sw.Write(cell.Value);
-                        }
-                        sw.WriteLine();     // go to next line in file
-                    }
-                }
-                Process.Start("notepad.exe", saveFileDialog1.FileName);
-            }
-        }
-
-
         private void PrintCurrentRow()
         {
             List<string> lists = new List<string>();
@@ -399,30 +464,8 @@ namespace JobTrakker
 
                 string statusValue = row.Cells["Status"].Value.ToString();
                 entryList.Add("Job Status: " + statusValue + "\n");
-                /*
-                JobStatusCbo.SelectedIndex = JobStatusCbo.FindString(statusValue.Trim());
-                if (JobStatusCbo.SelectedIndex.Equals(-1))
-                {
-                    JobStatusCbo.SelectedIndex = 0;
-                }
-                */
-
-        /*
-                string activeState = row.Cells["ActiveState"].Value.ToString();
-                entryList.Add("Active Status: " + activeState + "\n");
-                /*
-                ActiveStateCbo.SelectedIndex = ActiveStateCbo.FindString(activeState.Trim());
-                if (ActiveStateCbo.SelectedIndex.Equals(-1))
-                {
-                    ActiveStateCbo.SelectedIndex = 0;
-                }
-                */
-
-                //                DWSRadBtn.Checked = row.Cells["DWSFlag"].Value.Equals(true) ? true : false;
 
                 entryList.Add("Date of Application/Contact: " + row.Cells["ContactDate"].Value.ToString() + "\n");
-                //                ContactDatePkr.Value = (DateTime)row.Cells["ContactDate"].Value;
-
                 InterviewDateTimeBox.Text = row.Cells["InterviewDateTime"].Value.ToString();
                 entryList.Add("Interview Date & Time: " + row.Cells["InterviewDateTime"].Value.ToString() + "\n");
 
@@ -451,13 +494,16 @@ namespace JobTrakker
             MessageBox.Show("This feature has not been implemented yet.");
 
             /*
+             * 
+             * 
             try
             {
                 PrintCurrentRow();
 
                 PrintDocument pd = new PrintDocument();
+                
                 pd.PrinterSettings.PrinterName = printDialog1.ShowDialog().ToString();
-                pd.
+
 
             }
             catch (Exception ex)

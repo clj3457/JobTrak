@@ -82,7 +82,7 @@ namespace JobTrakker
 		
 		private int _ID;
 		
-		private string _ActiveState;
+		private string _ApplicationStatus;
 		
 		private System.Nullable<bool> _DWSFlag;
 		
@@ -122,14 +122,16 @@ namespace JobTrakker
 		
 		private string _Comments;
 		
+		private string _JobType;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
     partial void OnIDChanging(int value);
     partial void OnIDChanged();
-    partial void OnActiveStateChanging(string value);
-    partial void OnActiveStateChanged();
+    partial void OnApplicationStatusChanging(string value);
+    partial void OnApplicationStatusChanged();
     partial void OnDWSFlagChanging(System.Nullable<bool> value);
     partial void OnDWSFlagChanged();
     partial void OnCompanyChanging(string value);
@@ -168,6 +170,8 @@ namespace JobTrakker
     partial void OnWebSiteChanged();
     partial void OnCommentsChanging(string value);
     partial void OnCommentsChanged();
+    partial void OnJobTypeChanging(string value);
+    partial void OnJobTypeChanged();
     #endregion
 		
 		public tblJobTrakker()
@@ -195,22 +199,22 @@ namespace JobTrakker
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveState", DbType="NChar(10)")]
-		public string ActiveState
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApplicationStatus", DbType="VarChar(100)")]
+		public string ApplicationStatus
 		{
 			get
 			{
-				return this._ActiveState;
+				return this._ApplicationStatus;
 			}
 			set
 			{
-				if ((this._ActiveState != value))
+				if ((this._ApplicationStatus != value))
 				{
-					this.OnActiveStateChanging(value);
+					this.OnApplicationStatusChanging(value);
 					this.SendPropertyChanging();
-					this._ActiveState = value;
-					this.SendPropertyChanged("ActiveState");
-					this.OnActiveStateChanged();
+					this._ApplicationStatus = value;
+					this.SendPropertyChanged("ApplicationStatus");
+					this.OnApplicationStatusChanged();
 				}
 			}
 		}
@@ -591,6 +595,26 @@ namespace JobTrakker
 					this._Comments = value;
 					this.SendPropertyChanged("Comments");
 					this.OnCommentsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobType", DbType="VarChar(250)")]
+		public string JobType
+		{
+			get
+			{
+				return this._JobType;
+			}
+			set
+			{
+				if ((this._JobType != value))
+				{
+					this.OnJobTypeChanging(value);
+					this.SendPropertyChanging();
+					this._JobType = value;
+					this.SendPropertyChanged("JobType");
+					this.OnJobTypeChanged();
 				}
 			}
 		}

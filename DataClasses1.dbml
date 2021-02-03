@@ -3,7 +3,7 @@
   <Table Name="dbo.tblJobTrakker" Member="tblJobTrakkers">
     <Type Name="tblJobTrakker">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="ActiveState" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="ApplicationStatus" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="DWSFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="Company" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="StaffingFirm" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
@@ -23,6 +23,7 @@
       <Column Name="CompanyPhone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="WebSite" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
       <Column Name="Comments" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="JobType" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>
