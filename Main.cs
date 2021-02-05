@@ -48,20 +48,19 @@ namespace JobTrakker
             }
 
             // update dataGridView from database table
-            GetDataFromTable(selectStatement, true);
+            GetDataFromTable(selectStatement);
         }
 
-        // refresh data: update data adapter from database table and clear entry boxes
-        // pass in sort flag to determine whether or not to sort dataGridView
-        private void RefreshData(bool sort)
+        // refresh data: update data adapter from database table
+        private void RefreshData()
         {
-            GetDataFromTable(selectStatement, sort);
+            GetDataFromTable(selectStatement);
             dataGridView1.Update();
-            ClearBoxes();
+//            ClearBoxes();
         }
 
         // get data from database table and load into dataGridView adapter
-        private void GetDataFromTable(string selectCommand, bool sort)
+        private void GetDataFromTable(string selectCommand)
         {
             try
             {
@@ -70,10 +69,7 @@ namespace JobTrakker
                 table.Locale = System.Globalization.CultureInfo.InvariantCulture;
                 dataAdapter.Fill(table);
                 bindingSource1.DataSource = table;
-                if (sort)
-                {
-                    dataGridView1.Sort(dataGridView1.Columns[7], ListSortDirection.Descending);
-                }
+                dataGridView1.Sort(dataGridView1.Columns[7], ListSortDirection.Descending);
             }
             catch (SqlException ex)
             {
@@ -173,14 +169,14 @@ namespace JobTrakker
 
                 }
             }           // end of using statement
-//            RefreshData();
+            RefreshData();
         }
 
         // save entry to database and clear entry
         private void btnSaveEntry_Click(object sender, EventArgs e)
         {
             saveEntry();
-            RefreshData(true);
+            ClearBoxes();
         }
 
         // update entry by saving data to database, keeping entry displayed
@@ -230,7 +226,7 @@ namespace JobTrakker
                         MessageBox.Show(ex.Message);
                     }
                 }
-                RefreshData(true);
+                RefreshData();
             }
         }
 
@@ -316,40 +312,39 @@ namespace JobTrakker
         //-----------------------------------------------------
         private void SearchBtn_Click(object sender, EventArgs e)
         {
-            bool sort = true;
             string searchSubject = SelectSearchCbo.SelectedItem.ToString();
             switch (searchSubject.Trim()) { 
                 // no selection made, get entire table
                 case "No Selection":
-                    GetDataFromTable(selectStatement, sort);
+                    GetDataFromTable(selectStatement);
                 break;
                 // get all jobs with entered job title
                 case "Job Title":
-                    GetDataFromTable("Select * from tblJobTrakker where lower(JobTitle) like '%" + SearchBox.Text.ToLower() + "%'", sort);
+                    GetDataFromTable("Select * from tblJobTrakker where lower(JobTitle) like '%" + SearchBox.Text.ToLower() + "%'");
                     break;
                 // get all jobs with entered company name
                 case "Company Name":
-                    GetDataFromTable("Select * from tblJobTrakker where lower(Company) like '%" + SearchBox.Text.ToLower() + "%'", sort);
+                    GetDataFromTable("Select * from tblJobTrakker where lower(Company) like '%" + SearchBox.Text.ToLower() + "%'");
                     break;
                 // get all jobs with entered Staffing Firm name
                 case "Staffing Firm Name":
-                    GetDataFromTable("Select * from tblJobTrakker where lower(StaffingFirm) like '%" + SearchBox.Text.ToLower() + "%'", sort);
+                    GetDataFromTable("Select * from tblJobTrakker where lower(StaffingFirm) like '%" + SearchBox.Text.ToLower() + "%'");
                     break;
                 // get all jobs with entered job status
                 case "Job Status":
-                    GetDataFromTable("Select * from tblJobTrakker where lower(Status) like '%" + SearchBox.Text.ToLower() + "%'", sort);
+                    GetDataFromTable("Select * from tblJobTrakker where lower(Status) like '%" + SearchBox.Text.ToLower() + "%'");
                     break;
                 // get all jobs with entered active state
                 case "Application Status":
-                    GetDataFromTable("Select * from tblJobTrakker where lower(ApplicationStatus) like '%" + SearchBox.Text.ToLower() + "%'", sort);
+                    GetDataFromTable("Select * from tblJobTrakker where lower(ApplicationStatus) like '%" + SearchBox.Text.ToLower() + "%'");
                     break;
                 // get all jobs with entered active state
                 case "Job Type":
-                    GetDataFromTable("Select * from tblJobTrakker where lower(JobType) like '%" + SearchBox.Text.ToLower() + "%'", sort);
+                    GetDataFromTable("Select * from tblJobTrakker where lower(JobType) like '%" + SearchBox.Text.ToLower() + "%'");
                     break;
                 // get all jobs that are not closed
                 case "Not Closed":
-                    GetDataFromTable("Select * from tblJobTrakker where lower(ApplicationStatus) not like '%closed%'", sort);
+                    GetDataFromTable("Select * from tblJobTrakker where lower(ApplicationStatus) not like '%closed%'");
                     break;
 
                 default:
