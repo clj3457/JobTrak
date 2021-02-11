@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobTrakker", "JobTrakker.csproj", "{F7F50A90-1257-4902-9AFE-79E83EC58039}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobTrak", "JobTrak.csproj", "{F7F50A90-1257-4902-9AFE-79E83EC58039}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DatabasejobTrakker", "DatabasejobTrakker\DatabasejobTrakker.sqlproj", "{00D1EFED-3707-4B13-BB42-51C9B0858614}"
 EndProject
