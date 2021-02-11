@@ -32,13 +32,6 @@ namespace JobTrak
             InitializeComponent();
         }
 
-        /*
-        void EntryForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-
-        }
-        */
-
         private void frmJobEntry_Load(object sender, EventArgs e)
         {
             // data is actually being loaded into form if needed in the parent
@@ -236,9 +229,12 @@ namespace JobTrak
             ClearBoxes();
         }
 
-         private void CloseEntryForm(object sender, EventArgs e)
+        //------------------------------------------------------
+        // close the entry form to return to the main table form
+        //------------------------------------------------------
+        private void CloseEntryForm(object sender, EventArgs e)
         {
-
+            this.Close();
         }
     }
 }
