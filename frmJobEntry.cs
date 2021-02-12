@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace JobTrak
 {
-    public partial class frmJobEntry : Form
+    public partial class JobEntry : Form
     {
         // use duplicate string for now, but later, use public method in main to get connString (TBD)
         //        private readonly String connString = @"Data Source=LAPTOP-KKSCK99N;Initial Catalog=dbJobTrakker;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
@@ -27,7 +27,7 @@ namespace JobTrak
         */
         private int idSelected = 0;
 
-        public frmJobEntry()
+        public JobEntry()
         {
             InitializeComponent();
         }
@@ -35,21 +35,22 @@ namespace JobTrak
         private void frmJobEntry_Load(object sender, EventArgs e)
         {
             // data is actually being loaded into form if needed in the parent
-            /*
-            JobStatusCbo.SelectedIndex = 0;             // set index to 1st item in job status combo box
-            ActiveStateCbo.SelectedIndex = 0;
-            JobBoardCbo.SelectedIndex = 0;
-            JobTypeCbo.SelectedIndex = 0;
-            */
-            // initialize and create JobEntry form
-            //            frmJobEntry = new Form();
-            //            frmJobEntry.MdiParent = this;
+            //
         }
 
         // set the connection string
         public void SetConnString(String connectionString)
         {
             this.connString = connectionString;
+        }
+
+        //--------------------------------------------------
+        // display entry data from table in frmJobEntry form
+        public void SetDefaultCheckBoxes()
+        {
+            ContactDatePkr.Value = DateTime.Today;
+            ActiveStateCbo.Text = "Active";
+            JobTypeCbo.Text = "Software";
         }
 
         //--------------------------------------------------
@@ -223,7 +224,23 @@ namespace JobTrak
             ClearBoxes();
         }
 
+        private void SaveAndStartNewEntry_Click(object sender, EventArgs e)
+        {
+            saveEntry();
+            ClearBoxes();
+            SetDefaultCheckBoxes();
+        }
+
+        private void SaveThenCloseForm_Click(object sender, EventArgs e)
+        {
+            saveEntry();
+            ClearBoxes();
+            this.Close();
+        }
+
+        //----------------------
         // clear all entry boxes
+        //----------------------
         private void ClearEntry_Click(object sender, EventArgs e)
         {
             ClearBoxes();
@@ -237,4 +254,6 @@ namespace JobTrak
             this.Close();
         }
     }
+
 }
+

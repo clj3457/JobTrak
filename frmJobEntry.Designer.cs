@@ -1,7 +1,7 @@
 ﻿
 namespace JobTrak
 {
-    partial class frmJobEntry
+    partial class JobEntry
     {
         /// <summary>
         /// Required designer variable.
@@ -72,9 +72,11 @@ namespace JobTrak
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.updateEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveClearEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsSaveClearEntry = new System.Windows.Forms.ToolStripMenuItem();
             this.clearEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsSaveAndStartNewEntry = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsSaveThenCloseForm = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -535,7 +537,9 @@ namespace JobTrak
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.updateEntryToolStripMenuItem,
-            this.saveClearEntryToolStripMenuItem,
+            this.tsSaveClearEntry,
+            this.tsSaveAndStartNewEntry,
+            this.tsSaveThenCloseForm,
             this.clearEntryToolStripMenuItem,
             this.closeEntryToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
@@ -545,30 +549,44 @@ namespace JobTrak
             // updateEntryToolStripMenuItem
             // 
             this.updateEntryToolStripMenuItem.Name = "updateEntryToolStripMenuItem";
-            this.updateEntryToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
+            this.updateEntryToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
             this.updateEntryToolStripMenuItem.Text = "Update Entry";
             this.updateEntryToolStripMenuItem.Click += new System.EventHandler(this.UpdateEntry_Click);
             // 
-            // saveClearEntryToolStripMenuItem
+            // tsSaveClearEntry
             // 
-            this.saveClearEntryToolStripMenuItem.Name = "saveClearEntryToolStripMenuItem";
-            this.saveClearEntryToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
-            this.saveClearEntryToolStripMenuItem.Text = "Save and Clear Entry";
-            this.saveClearEntryToolStripMenuItem.Click += new System.EventHandler(this.SaveClearEntry_Click);
+            this.tsSaveClearEntry.Name = "tsSaveClearEntry";
+            this.tsSaveClearEntry.Size = new System.Drawing.Size(236, 26);
+            this.tsSaveClearEntry.Text = "Save: Clear Entry";
+            this.tsSaveClearEntry.Click += new System.EventHandler(this.SaveClearEntry_Click);
             // 
             // clearEntryToolStripMenuItem
             // 
             this.clearEntryToolStripMenuItem.Name = "clearEntryToolStripMenuItem";
-            this.clearEntryToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
+            this.clearEntryToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
             this.clearEntryToolStripMenuItem.Text = "Clear Entry";
             this.clearEntryToolStripMenuItem.Click += new System.EventHandler(this.ClearEntry_Click);
             // 
             // closeEntryToolStripMenuItem
             // 
             this.closeEntryToolStripMenuItem.Name = "closeEntryToolStripMenuItem";
-            this.closeEntryToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
+            this.closeEntryToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
             this.closeEntryToolStripMenuItem.Text = "Close Entry Form";
             this.closeEntryToolStripMenuItem.Click += new System.EventHandler(this.CloseEntryForm);
+            // 
+            // tsSaveAndStartNewEntry
+            // 
+            this.tsSaveAndStartNewEntry.Name = "tsSaveAndStartNewEntry";
+            this.tsSaveAndStartNewEntry.Size = new System.Drawing.Size(236, 26);
+            this.tsSaveAndStartNewEntry.Text = "Save: Start  New Entry";
+            this.tsSaveAndStartNewEntry.Click += new System.EventHandler(this.SaveAndStartNewEntry_Click);
+            // 
+            // tsSaveThenCloseForm
+            // 
+            this.tsSaveThenCloseForm.Name = "tsSaveThenCloseForm";
+            this.tsSaveThenCloseForm.Size = new System.Drawing.Size(236, 26);
+            this.tsSaveThenCloseForm.Text = "Save: Close form";
+            this.tsSaveThenCloseForm.Click += new System.EventHandler(this.SaveThenCloseForm_Click);
             // 
             // frmJobEntry
             // 
@@ -673,8 +691,10 @@ namespace JobTrak
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem updateEntryToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveClearEntryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsSaveClearEntry;
         private System.Windows.Forms.ToolStripMenuItem clearEntryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeEntryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsSaveAndStartNewEntry;
+        private System.Windows.Forms.ToolStripMenuItem tsSaveThenCloseForm;
     }
 }

@@ -153,9 +153,10 @@ namespace JobTrak
         //----------------------------------------------------------
         private void NewEntryItem_Click(object sender, EventArgs e)
         {
-            frmJobEntry frm = new frmJobEntry();        // make a new entry form
+            JobEntry frm = new JobEntry();        // make a new entry form
             frm.SetConnString(connString);
             frm.FormClosed += new FormClosedEventHandler(EntryForm_FormClosed);
+            frm.SetDefaultCheckBoxes();
             frm.Show();
         }
 
@@ -165,7 +166,7 @@ namespace JobTrak
         //----------------------------------------------------------
         private void DisplayEntryItem_Click(object sender, EventArgs e)
         {
-            frmJobEntry frm = new frmJobEntry();        // make a new entry form
+            JobEntry frm = new JobEntry();        // make a new entry form
             frm.DisplayTableData(dataGridView1);
             frm.SetConnString(connString);
             frm.FormClosed += new FormClosedEventHandler(EntryForm_FormClosed);
@@ -177,47 +178,55 @@ namespace JobTrak
         //----------------------------------------------------------
         private void SearchItem_Click(object sender, EventArgs e)
         {
-            string searchSubject = SelectSearchCbo.SelectedItem.ToString();
-            switch (searchSubject.Trim())
+            // validate that a search field has been selected
+            if (SelectSearchCbo.SelectedIndex > 0)
             {
-                // no selection made, get entire table
-                case "No Selection":
-                    GetDataFromTable(selectAllStatement);
-                    break;
-                // get all jobs with entered active state
-                case "Application Status":
-                    GetDataFromTable("Select * from tblJobTrakker where lower(ApplicationStatus) like '%" + SearchCriteriaBox.Text.ToLower() + "%'");
-                    break;
-                case "DWSFlag":
-                    int dwsSearch = (SearchCriteriaBox.Text.ToLower().Equals("true") ? 1 : 0);
-                    GetDataFromTable("Select * from tblJobTrakker where lower(DWSFlag) like '%" + dwsSearch + "%'");
-                    break;
-                // get all jobs with entered job title
-                case "Job Title":
-                    GetDataFromTable("Select * from tblJobTrakker where lower(JobTitle) like '%" + SearchCriteriaBox.Text.ToLower() + "%'");
-                    break;
-                // get all jobs with entered company name
-                case "Company Name":
-                    GetDataFromTable("Select * from tblJobTrakker where lower(Company) like '%" + SearchCriteriaBox.Text.ToLower() + "%'");
-                    break;
-                // get all jobs with entered Staffing Firm name
-                case "Staffing Firm Name":
-                    GetDataFromTable("Select * from tblJobTrakker where lower(StaffingFirm) like '%" + SearchCriteriaBox.Text.ToLower() + "%'");
-                    break;
-                // get all jobs with entered job status
-                case "Job Status":
-                    GetDataFromTable("Select * from tblJobTrakker where lower(Status) like '%" + SearchCriteriaBox.Text.ToLower() + "%'");
-                    break;
-                // get all jobs with entered active state
-                case "Job Type":
-                    GetDataFromTable("Select * from tblJobTrakker where lower(JobType) like '%" + SearchCriteriaBox.Text.ToLower() + "%'");
-                    break;
-                // get all jobs that are not closed
-                case "Not Closed":
-                    GetDataFromTable("Select * from tblJobTrakker where lower(ApplicationStatus) not like '%closed%'");
-                    break;
-                default:
-                    break;
+                string searchSubject = SelectSearchCbo.SelectedItem.ToString();
+                switch (searchSubject.Trim())
+                {
+                    // no selection made, get entire table
+                    case "No Selection":
+                        GetDataFromTable(selectAllStatement);
+                        break;
+                    // get all jobs with entered active state
+                    case "Application Status":
+                        GetDataFromTable("Select * from tblJobTrakker where lower(ApplicationStatus) like '%" + SearchCriteriaBox.Text.ToLower() + "%'");
+                        break;
+                    case "DWSFlag":
+                        int dwsSearch = (SearchCriteriaBox.Text.ToLower().Equals("true") ? 1 : 0);
+                        GetDataFromTable("Select * from tblJobTrakker where lower(DWSFlag) like '%" + dwsSearch + "%'");
+                        break;
+                    // get all jobs with entered job title
+                    case "Job Title":
+                        GetDataFromTable("Select * from tblJobTrakker where lower(JobTitle) like '%" + SearchCriteriaBox.Text.ToLower() + "%'");
+                        break;
+                    // get all jobs with entered company name
+                    case "Company Name":
+                        GetDataFromTable("Select * from tblJobTrakker where lower(Company) like '%" + SearchCriteriaBox.Text.ToLower() + "%'");
+                        break;
+                    // get all jobs with entered Staffing Firm name
+                    case "Staffing Firm Name":
+                        GetDataFromTable("Select * from tblJobTrakker where lower(StaffingFirm) like '%" + SearchCriteriaBox.Text.ToLower() + "%'");
+                        break;
+                    // get all jobs with entered job status
+                    case "Job Status":
+                        GetDataFromTable("Select * from tblJobTrakker where lower(Status) like '%" + SearchCriteriaBox.Text.ToLower() + "%'");
+                        break;
+                    // get all jobs with entered active state
+                    case "Job Type":
+                        GetDataFromTable("Select * from tblJobTrakker where lower(JobType) like '%" + SearchCriteriaBox.Text.ToLower() + "%'");
+                        break;
+                    // get all jobs that are not closed
+                    case "Not Closed":
+                        GetDataFromTable("Select * from tblJobTrakker where lower(ApplicationStatus) not like '%closed%'");
+                        break;
+                    default:
+                        break;
+                }                                   // end of switch statement
+            }                                       // end of valid selection
+            else
+            {
+                MessageBox.Show("Please Select a Search Field.");
             }
         }
 
@@ -377,16 +386,6 @@ namespace JobTrak
                 MessageBox.Show(ex.Message);
             }
             */
-            }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void fileOptionsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
     }                       // end of class Main
 }

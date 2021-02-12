@@ -39,7 +39,6 @@ namespace JobTrak
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.newEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsNewEntryItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,10 +52,11 @@ namespace JobTrak
             this.tsSearchOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmSearchItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsClearSearchItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -64,13 +64,12 @@ namespace JobTrak
             this.dataGridView1.BackgroundColor = System.Drawing.Color.LightSteelBlue;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(14, 46);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(5);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(1707, 625);
             this.dataGridView1.TabIndex = 59;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
             // 
             // SelectSearchCbo
@@ -86,7 +85,7 @@ namespace JobTrak
             "Job Status",
             "Job Type",
             "Not Closed"});
-            this.SelectSearchCbo.Location = new System.Drawing.Point(417, 2);
+            this.SelectSearchCbo.Location = new System.Drawing.Point(429, 13);
             this.SelectSearchCbo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.SelectSearchCbo.Name = "SelectSearchCbo";
             this.SelectSearchCbo.Size = new System.Drawing.Size(161, 24);
@@ -95,7 +94,7 @@ namespace JobTrak
             // 
             // SearchCriteriaBox
             // 
-            this.SearchCriteriaBox.Location = new System.Drawing.Point(756, 3);
+            this.SearchCriteriaBox.Location = new System.Drawing.Point(768, 14);
             this.SearchCriteriaBox.Margin = new System.Windows.Forms.Padding(4);
             this.SearchCriteriaBox.Name = "SearchCriteriaBox";
             this.SearchCriteriaBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -105,7 +104,7 @@ namespace JobTrak
             // lblSelectSearch
             // 
             this.lblSelectSearch.AutoSize = true;
-            this.lblSelectSearch.Location = new System.Drawing.Point(278, 5);
+            this.lblSelectSearch.Location = new System.Drawing.Point(288, 15);
             this.lblSelectSearch.Name = "lblSelectSearch";
             this.lblSelectSearch.Size = new System.Drawing.Size(130, 17);
             this.lblSelectSearch.TabIndex = 88;
@@ -114,7 +113,7 @@ namespace JobTrak
             // lblSearchCriteria
             // 
             this.lblSearchCriteria.AutoSize = true;
-            this.lblSearchCriteria.Location = new System.Drawing.Point(611, 5);
+            this.lblSearchCriteria.Location = new System.Drawing.Point(621, 15);
             this.lblSearchCriteria.Name = "lblSearchCriteria";
             this.lblSearchCriteria.Size = new System.Drawing.Size(140, 17);
             this.lblSearchCriteria.TabIndex = 89;
@@ -133,10 +132,6 @@ namespace JobTrak
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
             // 
-            // bindingSource1
-            // 
-            this.bindingSource1.DataSource = typeof(JobTrakker.tblJobTrakker);
-            // 
             // menuStrip1
             // 
             this.menuStrip1.BackColor = System.Drawing.Color.DeepSkyBlue;
@@ -145,9 +140,10 @@ namespace JobTrak
             this.newEntryToolStripMenuItem,
             this.fileOptionsToolStripMenuItem,
             this.tsSearchOptions});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Location = new System.Drawing.Point(10, 10);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1783, 30);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(2);
+            this.menuStrip1.Size = new System.Drawing.Size(1729, 28);
             this.menuStrip1.TabIndex = 150;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -159,14 +155,14 @@ namespace JobTrak
             this.deleteSelectedRowToolStripMenuItem,
             this.refreshTableToolStripMenuItem});
             this.newEntryToolStripMenuItem.Name = "newEntryToolStripMenuItem";
-            this.newEntryToolStripMenuItem.Size = new System.Drawing.Size(67, 24);
+            this.newEntryToolStripMenuItem.Size = new System.Drawing.Size(67, 26);
             this.newEntryToolStripMenuItem.Text = "Entries";
             // 
             // tsNewEntryItem
             // 
             this.tsNewEntryItem.Name = "tsNewEntryItem";
             this.tsNewEntryItem.Size = new System.Drawing.Size(239, 26);
-            this.tsNewEntryItem.Text = "New Entry";
+            this.tsNewEntryItem.Text = "Create New Entry";
             this.tsNewEntryItem.Click += new System.EventHandler(this.NewEntryItem_Click);
             // 
             // tsDisplayEntryItem
@@ -197,21 +193,20 @@ namespace JobTrak
             this.exportToExcelToolStripMenuItem,
             this.printSelectedEntryToolStripMenuItem});
             this.fileOptionsToolStripMenuItem.Name = "fileOptionsToolStripMenuItem";
-            this.fileOptionsToolStripMenuItem.Size = new System.Drawing.Size(102, 24);
+            this.fileOptionsToolStripMenuItem.Size = new System.Drawing.Size(102, 26);
             this.fileOptionsToolStripMenuItem.Text = "File Options";
-            this.fileOptionsToolStripMenuItem.Click += new System.EventHandler(this.fileOptionsToolStripMenuItem_Click);
             // 
             // saveToTextToolStripMenuItem
             // 
             this.saveToTextToolStripMenuItem.Name = "saveToTextToolStripMenuItem";
-            this.saveToTextToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveToTextToolStripMenuItem.Size = new System.Drawing.Size(220, 26);
             this.saveToTextToolStripMenuItem.Text = "Save To Text";
             this.saveToTextToolStripMenuItem.Click += new System.EventHandler(this.SaveToText_Click);
             // 
             // exportToExcelToolStripMenuItem
             // 
             this.exportToExcelToolStripMenuItem.Name = "exportToExcelToolStripMenuItem";
-            this.exportToExcelToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.exportToExcelToolStripMenuItem.Size = new System.Drawing.Size(220, 26);
             this.exportToExcelToolStripMenuItem.Text = "Export To Excel";
             this.exportToExcelToolStripMenuItem.Click += new System.EventHandler(this.Export2Excel_Click);
             // 
@@ -219,7 +214,7 @@ namespace JobTrak
             // 
             this.printSelectedEntryToolStripMenuItem.Enabled = false;
             this.printSelectedEntryToolStripMenuItem.Name = "printSelectedEntryToolStripMenuItem";
-            this.printSelectedEntryToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.printSelectedEntryToolStripMenuItem.Size = new System.Drawing.Size(220, 26);
             this.printSelectedEntryToolStripMenuItem.Text = "Print Selected Entry";
             this.printSelectedEntryToolStripMenuItem.Click += new System.EventHandler(this.PrintSelected_Click);
             // 
@@ -229,7 +224,7 @@ namespace JobTrak
             this.tsmSearchItem,
             this.tsClearSearchItem});
             this.tsSearchOptions.Name = "tsSearchOptions";
-            this.tsSearchOptions.Size = new System.Drawing.Size(67, 24);
+            this.tsSearchOptions.Size = new System.Drawing.Size(67, 26);
             this.tsSearchOptions.Text = "Search";
             // 
             // tsmSearchItem
@@ -246,12 +241,18 @@ namespace JobTrak
             this.tsClearSearchItem.Text = "Clear Search Parameters";
             this.tsClearSearchItem.Click += new System.EventHandler(this.ClearSearchItem_Click);
             // 
+            // bindingSource1
+            // 
+            this.bindingSource1.DataSource = typeof(JobTrakker.tblJobTrakker);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.ClientSize = new System.Drawing.Size(1783, 857);
+            this.ClientSize = new System.Drawing.Size(1749, 857);
             this.Controls.Add(this.lblSearchCriteria);
             this.Controls.Add(this.lblSelectSearch);
             this.Controls.Add(this.SearchCriteriaBox);
@@ -261,13 +262,14 @@ namespace JobTrak
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Main";
-            this.Text = "Job Trakker";
+            this.Padding = new System.Windows.Forms.Padding(10);
+            this.Text = "Job Trak";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
