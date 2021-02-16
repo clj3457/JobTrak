@@ -73,10 +73,10 @@ namespace JobTrak
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.updateEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsSaveClearEntry = new System.Windows.Forms.ToolStripMenuItem();
-            this.clearEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.closeEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsSaveAndStartNewEntry = new System.Windows.Forms.ToolStripMenuItem();
             this.tsSaveThenCloseForm = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -197,6 +197,7 @@ namespace JobTrak
             "Active",
             "Check Status",
             "Status Request",
+            "Interviewing",
             "Closed"});
             this.ActiveStateCbo.Location = new System.Drawing.Point(151, 161);
             this.ActiveStateCbo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -241,7 +242,6 @@ namespace JobTrak
             "No Response",
             "Connected",
             "Pending",
-            "Interview",
             "Submitted",
             "Filled",
             "Not Selected",
@@ -306,6 +306,7 @@ namespace JobTrak
             this.CommentsBox.Multiline = true;
             this.CommentsBox.Name = "CommentsBox";
             this.CommentsBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.CommentsBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.CommentsBox.Size = new System.Drawing.Size(1003, 284);
             this.CommentsBox.TabIndex = 170;
             // 
@@ -560,20 +561,6 @@ namespace JobTrak
             this.tsSaveClearEntry.Text = "Save: Clear Entry";
             this.tsSaveClearEntry.Click += new System.EventHandler(this.SaveClearEntry_Click);
             // 
-            // clearEntryToolStripMenuItem
-            // 
-            this.clearEntryToolStripMenuItem.Name = "clearEntryToolStripMenuItem";
-            this.clearEntryToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
-            this.clearEntryToolStripMenuItem.Text = "Clear Entry";
-            this.clearEntryToolStripMenuItem.Click += new System.EventHandler(this.ClearEntry_Click);
-            // 
-            // closeEntryToolStripMenuItem
-            // 
-            this.closeEntryToolStripMenuItem.Name = "closeEntryToolStripMenuItem";
-            this.closeEntryToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
-            this.closeEntryToolStripMenuItem.Text = "Close Entry Form";
-            this.closeEntryToolStripMenuItem.Click += new System.EventHandler(this.CloseEntryForm);
-            // 
             // tsSaveAndStartNewEntry
             // 
             this.tsSaveAndStartNewEntry.Name = "tsSaveAndStartNewEntry";
@@ -588,7 +575,21 @@ namespace JobTrak
             this.tsSaveThenCloseForm.Text = "Save: Close form";
             this.tsSaveThenCloseForm.Click += new System.EventHandler(this.SaveThenCloseForm_Click);
             // 
-            // frmJobEntry
+            // clearEntryToolStripMenuItem
+            // 
+            this.clearEntryToolStripMenuItem.Name = "clearEntryToolStripMenuItem";
+            this.clearEntryToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
+            this.clearEntryToolStripMenuItem.Text = "Clear Entry";
+            this.clearEntryToolStripMenuItem.Click += new System.EventHandler(this.ClearEntry_Click);
+            // 
+            // closeEntryToolStripMenuItem
+            // 
+            this.closeEntryToolStripMenuItem.Name = "closeEntryToolStripMenuItem";
+            this.closeEntryToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
+            this.closeEntryToolStripMenuItem.Text = "Close Entry Form";
+            this.closeEntryToolStripMenuItem.Click += new System.EventHandler(this.CloseEntryForm);
+            // 
+            // JobEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -636,7 +637,7 @@ namespace JobTrak
             this.Controls.Add(this.CompanyNameLbl);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "frmJobEntry";
+            this.Name = "JobEntry";
             this.Text = "frmJobEntry";
             this.Load += new System.EventHandler(this.frmJobEntry_Load);
             this.menuStrip1.ResumeLayout(false);

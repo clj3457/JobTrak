@@ -77,6 +77,7 @@ namespace JobTrak
             this.SelectSearchCbo.FormattingEnabled = true;
             this.SelectSearchCbo.Items.AddRange(new object[] {
             "No Selection",
+            "All Entries",
             "Application Status",
             "DWSFlag",
             "Job Title",
@@ -104,7 +105,7 @@ namespace JobTrak
             // lblSelectSearch
             // 
             this.lblSelectSearch.AutoSize = true;
-            this.lblSelectSearch.Location = new System.Drawing.Point(288, 15);
+            this.lblSelectSearch.Location = new System.Drawing.Point(288, 17);
             this.lblSelectSearch.Name = "lblSelectSearch";
             this.lblSelectSearch.Size = new System.Drawing.Size(130, 17);
             this.lblSelectSearch.TabIndex = 88;
@@ -113,7 +114,7 @@ namespace JobTrak
             // lblSearchCriteria
             // 
             this.lblSearchCriteria.AutoSize = true;
-            this.lblSearchCriteria.Location = new System.Drawing.Point(621, 15);
+            this.lblSearchCriteria.Location = new System.Drawing.Point(621, 17);
             this.lblSearchCriteria.Name = "lblSearchCriteria";
             this.lblSearchCriteria.Size = new System.Drawing.Size(140, 17);
             this.lblSearchCriteria.TabIndex = 89;
@@ -155,7 +156,7 @@ namespace JobTrak
             this.deleteSelectedRowToolStripMenuItem,
             this.refreshTableToolStripMenuItem});
             this.newEntryToolStripMenuItem.Name = "newEntryToolStripMenuItem";
-            this.newEntryToolStripMenuItem.Size = new System.Drawing.Size(67, 26);
+            this.newEntryToolStripMenuItem.Size = new System.Drawing.Size(67, 24);
             this.newEntryToolStripMenuItem.Text = "Entries";
             // 
             // tsNewEntryItem
@@ -193,7 +194,7 @@ namespace JobTrak
             this.exportToExcelToolStripMenuItem,
             this.printSelectedEntryToolStripMenuItem});
             this.fileOptionsToolStripMenuItem.Name = "fileOptionsToolStripMenuItem";
-            this.fileOptionsToolStripMenuItem.Size = new System.Drawing.Size(102, 26);
+            this.fileOptionsToolStripMenuItem.Size = new System.Drawing.Size(102, 24);
             this.fileOptionsToolStripMenuItem.Text = "File Options";
             // 
             // saveToTextToolStripMenuItem
@@ -224,7 +225,7 @@ namespace JobTrak
             this.tsmSearchItem,
             this.tsClearSearchItem});
             this.tsSearchOptions.Name = "tsSearchOptions";
-            this.tsSearchOptions.Size = new System.Drawing.Size(67, 26);
+            this.tsSearchOptions.Size = new System.Drawing.Size(67, 24);
             this.tsSearchOptions.Text = "Search";
             // 
             // tsmSearchItem
