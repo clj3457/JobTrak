@@ -33,6 +33,7 @@ namespace JobTrak
             InitializeComponent();
         }
 
+
         //-----------------------------------------------------------------
         //-----------------------------------------------------------------
         private void Form1_Load(object sender, EventArgs e)
@@ -155,7 +156,7 @@ namespace JobTrak
         //----------------------------------------------------------
         private void NewEntryItem_Click(object sender, EventArgs e)
         {
-            JobEntry frm = new JobEntry();        // make a new entry form
+            frmJobEntry frm = new frmJobEntry();        // make a new entry form
             frm.SetConnString(connString);
             frm.FormClosed += new FormClosedEventHandler(EntryForm_FormClosed);
             frm.SetDefaultCheckBoxes();
@@ -168,7 +169,7 @@ namespace JobTrak
         //----------------------------------------------------------
         private void DisplayEntryItem_Click(object sender, EventArgs e)
         {
-            JobEntry frm = new JobEntry();        // make a new entry form
+            frmJobEntry frm = new frmJobEntry();        // make a new entry form
             frm.DisplayTableData(dataGridView1);
             frm.SetConnString(connString);
             frm.FormClosed += new FormClosedEventHandler(EntryForm_FormClosed);

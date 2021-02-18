@@ -9,25 +9,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-//using namespace JobTrak;
-
 namespace JobTrak
 {
-    public partial class JobEntry : Form
+    public partial class frmJobEntry : Form
     {
         // use duplicate string for now, but later, use public method in main to get connString (TBD)
         //        private readonly String connString = @"Data Source=LAPTOP-KKSCK99N;Initial Catalog=dbJobTrakker;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         private String connString;
         private SqlConnection conn;
-        /*
-        private SqlDataAdapter dataAdapter;     // this is used to build connection between program and database
-        private System.Data.DataTable table;                // table to hold info for dataGridView1
-        private SqlCommandBuilder commandBuilder;
-        private readonly string selectStatement = "Select * from tblJobTrakker";
-        */
         private int idSelected = 0;
 
-        public JobEntry()
+        public frmJobEntry()
         {
             InitializeComponent();
         }
@@ -38,7 +30,15 @@ namespace JobTrak
             //
         }
 
+        //--------------------------------------------------
+        // getter and setter for idSelected - primary key ID
+        //--------------------------------------------------
+        public int GetIdSelected() { return this.idSelected;  }
+        public void SetIdSelected(int id) { this.idSelected = id;  }
+
+        //--------------------------
         // set the connection string
+        //--------------------------
         public void SetConnString(String connectionString)
         {
             this.connString = connectionString;
@@ -46,15 +46,19 @@ namespace JobTrak
 
         //--------------------------------------------------
         // display entry data from table in frmJobEntry form
+        //--------------------------------------------------
         public void SetDefaultCheckBoxes()
         {
             ContactDatePkr.Value = DateTime.Today;
             ActiveStateCbo.Text = "Active";
             JobTypeCbo.Text = "Software";
+            JobStatusCbo.Text = "None";
+            JobBoardCbo.Text = "None";
         }
 
         //--------------------------------------------------
         // display entry data from table in frmJobEntry form
+        //--------------------------------------------------
         public void DisplayTableData(DataGridView dataGridView1)
         {
             try
@@ -116,7 +120,9 @@ namespace JobTrak
             }
         }
 
+        //------------------------------
         // clear all entry boxes  
+        //------------------------------
         private void ClearBoxes()
         {
             ActiveStateCbo.SelectedIndex = 0;
@@ -143,15 +149,19 @@ namespace JobTrak
             JobTypeCbo.SelectedIndex = 0;
         }
 
+        //------------------------------
         // save entered data to database
+        //------------------------------
         private void saveEntry()
         {
             SqlCommand command;
+            // insert brand new entry into table
             string insert = @"insert into tblJobTrakker(ApplicationStatus, DWSFlag, Company, StaffingFirm, JobTitle, Status, ContactDate, InterviewDateTime, JobBoard, JobID, Contact, Title, Phone, Email, RecruiterFlag, Address, JobLocation, CompanyPhone, WebSite, Comments, JobType)
                             values(@ApplicationStatus, @DWSFlag, @Company, @StaffingFirm, @JobTitle, @Status, @ContactDate, @InterviewDateTime, @JobBoard, @JobID, @Contact, @Title, @Phone, @Email, @RecruiterFlag, @Address, @JobLocation, @CompanyPhone, @WebSite, @Comments, @JobType)";
 
+            // update row in table for the idSelected
             string update = @"UPDATE tblJobTrakker SET ApplicationStatus = @ApplicationStatus, DWSFlag = @DWSFlag, Company = @Company, StaffingFirm = @StaffingFirm, JobTitle = @JobTitle, Status = @Status, ContactDate = @ContactDate, InterviewDateTime = @InterviewDateTime, JobBoard = @JobBoard, JobID = @JobID, Contact = @Contact, Title = @Title, Phone = @Phone, Email = @Email, RecruiterFlag = @RecruiterFlag, Address = @Address, JobLocation = @JobLocation, CompanyPhone = @CompanyPhone, WebSite = @WebSite, Comments = @Comments, JobType = @JobType WHERE ID = " + idSelected.ToString();
-            
+
             using (conn = new SqlConnection(connString))
             {
                 try
@@ -201,29 +211,53 @@ namespace JobTrak
                     command.Parameters.AddWithValue(@"JobType", jobType);
 
                     command.ExecuteNonQuery();  // push stuff into the table from the form
+
+                    // if idSelected is not set, get the ID from the last entry inserted into the table
+                    if (idSelected.Equals(0))
+                    {
+                        string queryId = "Select @@Identity as newId from tblJobTrakker";
+                        SqlCommand cmd = new SqlCommand(queryId, conn);
+                        var newId = cmd.ExecuteScalar();
+
+                        int id = Convert.ToInt32(newId);
+                        SetIdSelected(id);
+                    }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
 
                 }
+
+                // don't I need to close the connection?????
+                finally
+                {
+                    conn.Close();
+                }
                 
             }           // end of using statement
         }
 
+        //-----------------------------------------------------------------
         // update entry by saving data to database, keeping entry displayed
+        //-----------------------------------------------------------------
         private void UpdateEntry_Click(object sender, EventArgs e)
         {
             saveEntry();
         }
 
+        //-----------------------------------------------------------------
         // save entry to database and clear entry
+        //-----------------------------------------------------------------
         private void SaveClearEntry_Click(object sender, EventArgs e)
         {
             saveEntry();
             ClearBoxes();
         }
 
+        //-----------------------------------------------------------------
+        // save entry, then start new entry
+        //-----------------------------------------------------------------
         private void SaveAndStartNewEntry_Click(object sender, EventArgs e)
         {
             saveEntry();
@@ -231,6 +265,9 @@ namespace JobTrak
             SetDefaultCheckBoxes();
         }
 
+        //-----------------------------------------------------------------
+        // save entry data from from, then close the form
+        //-----------------------------------------------------------------
         private void SaveThenCloseForm_Click(object sender, EventArgs e)
         {
             saveEntry();
@@ -254,6 +291,5 @@ namespace JobTrak
             this.Close();
         }
     }
-
 }
 

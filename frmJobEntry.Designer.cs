@@ -1,7 +1,7 @@
 ﻿
 namespace JobTrak
 {
-    partial class JobEntry
+    partial class frmJobEntry
     {
         /// <summary>
         /// Required designer variable.
@@ -71,7 +71,7 @@ namespace JobTrak
             this.CompanyNameLbl = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.updateEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmSaveEntry = new System.Windows.Forms.ToolStripMenuItem();
             this.tsSaveClearEntry = new System.Windows.Forms.ToolStripMenuItem();
             this.tsSaveAndStartNewEntry = new System.Windows.Forms.ToolStripMenuItem();
             this.tsSaveThenCloseForm = new System.Windows.Forms.ToolStripMenuItem();
@@ -133,15 +133,16 @@ namespace JobTrak
             this.JobBoardCbo.FormattingEnabled = true;
             this.JobBoardCbo.Items.AddRange(new object[] {
             "None",
-            "LinkedIn",
-            "indeed",
-            "Dice",
-            "CyberCoders",
-            "utah.jobs.gov",
-            "Monster",
             "CareerBuilders",
-            "ZipRecruiter",
             "Company Web Site",
+            "CyberCoders",
+            "Dice",
+            "indeed",
+            "Lensa",
+            "LinkedIn",
+            "Monster",
+            "utah.jobs.gov",
+            "ZipRecruiter",
             "Other"});
             this.JobBoardCbo.Location = new System.Drawing.Point(511, 195);
             this.JobBoardCbo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -240,9 +241,10 @@ namespace JobTrak
             this.JobStatusCbo.Items.AddRange(new object[] {
             "None",
             "No Response",
+            "Application In Progress",
             "Connected",
-            "Pending",
             "Submitted",
+            "Pending",
             "Filled",
             "Not Selected",
             "Rejected",
@@ -537,7 +539,7 @@ namespace JobTrak
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.updateEntryToolStripMenuItem,
+            this.tsmSaveEntry,
             this.tsSaveClearEntry,
             this.tsSaveAndStartNewEntry,
             this.tsSaveThenCloseForm,
@@ -547,12 +549,12 @@ namespace JobTrak
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(75, 24);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
-            // updateEntryToolStripMenuItem
+            // tsmSaveEntry
             // 
-            this.updateEntryToolStripMenuItem.Name = "updateEntryToolStripMenuItem";
-            this.updateEntryToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
-            this.updateEntryToolStripMenuItem.Text = "Update Entry";
-            this.updateEntryToolStripMenuItem.Click += new System.EventHandler(this.UpdateEntry_Click);
+            this.tsmSaveEntry.Name = "tsmSaveEntry";
+            this.tsmSaveEntry.Size = new System.Drawing.Size(236, 26);
+            this.tsmSaveEntry.Text = "Save";
+            this.tsmSaveEntry.Click += new System.EventHandler(this.UpdateEntry_Click);
             // 
             // tsSaveClearEntry
             // 
@@ -589,7 +591,7 @@ namespace JobTrak
             this.closeEntryToolStripMenuItem.Text = "Close Entry Form";
             this.closeEntryToolStripMenuItem.Click += new System.EventHandler(this.CloseEntryForm);
             // 
-            // JobEntry
+            // frmJobEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -637,8 +639,8 @@ namespace JobTrak
             this.Controls.Add(this.CompanyNameLbl);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "JobEntry";
-            this.Text = "frmJobEntry";
+            this.Name = "frmJobEntry";
+            this.Text = "Job Entry";
             this.Load += new System.EventHandler(this.frmJobEntry_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -691,7 +693,7 @@ namespace JobTrak
         private System.Windows.Forms.Label CompanyNameLbl;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem updateEntryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmSaveEntry;
         private System.Windows.Forms.ToolStripMenuItem tsSaveClearEntry;
         private System.Windows.Forms.ToolStripMenuItem clearEntryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeEntryToolStripMenuItem;
